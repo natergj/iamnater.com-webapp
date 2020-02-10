@@ -1,0 +1,19 @@
+version: 0.2
+
+env:
+  variables:
+     NODE_ENV: "production"
+     WEBPACK_BUILD_MODE: "production"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+  build:
+    commands:
+      - npm install
+      - npm run build
+artifacts:
+  files:
+    - '**/*'
+  base-directory: dist
