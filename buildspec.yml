@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-     NODE_ENV: "development"
+     NODE_ENV: "production"
      WEBPACK_BUILD_MODE: "production"
 
 phases:
@@ -20,4 +20,5 @@ phases:
 
 artifacts:
   files:
-    - 'dist/**/*'
+    - '**/*'
+  base-directory: dist
