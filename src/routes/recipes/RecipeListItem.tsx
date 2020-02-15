@@ -8,8 +8,8 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       cursor: "pointer",
       backgroundColor: theme.palette.action.hover,
-    }
-  }
+    },
+  },
 }));
 
 const RecipeListItem = React.memo(({ recipe }: { recipe: any }) => {
@@ -19,7 +19,7 @@ const RecipeListItem = React.memo(({ recipe }: { recipe: any }) => {
   const to = `/recipes/${recipe.id}/${recipe.title.replace(/[^a-zA-Z0-9_]/g, "-")}`;
   const goToRecipe = () => {
     history.push(to);
-  }
+  };
 
   return (
     <ListItem selected={recipe.id === params.recipeId} classes={classes} onClick={goToRecipe}>

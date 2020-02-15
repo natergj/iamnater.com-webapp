@@ -6,40 +6,46 @@ module.exports = {
   entry: path.resolve(__dirname, "src/index.tsx"),
   output: {
     filename: "[name].[chunkhash].js",
+    chunkFilename: "[name].[chunkhash].js",
     path: __dirname + "/dist",
     publicPath: "/",
   },
   mode: process.env.WEBPACK_BUILD_MODE || "production",
+  performance: {
+    assetFilter: assetFilename => !/\.map$/.test(assetFilename) && !/^vendors/.test(assetFilename),
+  },
   optimization: {
     splitChunks: {
       chunks: "all",
       cacheGroups: {
         react: {
           test: /[\\/]node_modules[\\/]react/,
-          priority: -5
+          priority: -5,
         },
         materialui: {
           test: /[\\/]node_modules[\\/]@material-ui/,
-          priority: -10
+          priority: -10,
         },
         defaultVendors: {
           test: /[\\/]node_modules[\\/]/,
-          priority: -20
+          priority: -20,
         },
-      }
+      },
     },
   },
   plugins: [
     new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.ejs" }),
     new webpack.DefinePlugin({
-      GRAPHQL_URI: JSON.stringify(process.env.GRAPHQL_URI || 'http://127.0.0.1:3000/graphql'),
-    })
+      GRAPHQL_URI: JSON.stringify(process.env.GRAPHQL_URI || "http://127.0.0.1:3000/graphql"),
+    }),
   ],
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
   },
   module: {
-    rules: [{ test: /\.tsx?$/, loader: "ts-loader" }],
+    rules: [
+      { test: /\.tsx?$/, exclude: path.resolve(__dirname, "./node_modules"), use: ["babel-loader", "ts-loader"] },
+    ],
   },
   devServer: {
     historyApiFallback: true,

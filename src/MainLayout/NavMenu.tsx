@@ -10,11 +10,18 @@ const NavMenu: React.FunctionComponent<{}> = () => {
   const goTo = (route: string) => {
     setIsMenuOpen(false);
     history.push(route);
-  }
+  };
 
   return (
     <React.Fragment>
-      <IconButton edge="start" aria-label="navigation menu" aria-controls="navigation-menu" aria-haspopup="true" onClick={() => setIsMenuOpen(true)} ref={anchorEl}>
+      <IconButton
+        edge="start"
+        aria-label="navigation menu"
+        aria-controls="navigation-menu"
+        aria-haspopup="true"
+        onClick={() => setIsMenuOpen(true)}
+        ref={anchorEl}
+      >
         <MenuIcon />
       </IconButton>
       <Menu id="navigation-menu" open={isMenuOpen} anchorEl={anchorEl.current} onClose={() => setIsMenuOpen(false)}>

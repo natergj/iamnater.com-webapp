@@ -5,8 +5,6 @@ import ErrorBoundary from "../components/ErrorBoundary";
 import NavMenu from "./NavMenu";
 import { useLocation } from "react-router-dom";
 
-const Loading = () => <div>Loading</div>;
-
 const useStyles = makeStyles(theme => ({
   spacer: {
     flexGrow: 1,
@@ -24,7 +22,7 @@ const ROUTE_MAP = new Map([
 const MainAppBar: React.FunctionComponent<{}> = () => {
   const classes = useStyles({});
   const location = useLocation();
-  const section = ROUTE_MAP.get(location.pathname.split("/")[1])
+  const section = ROUTE_MAP.get(location.pathname.split("/")[1]);
 
   return (
     <AppBar position="static" className={classes.appBar}>

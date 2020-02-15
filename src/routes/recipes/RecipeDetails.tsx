@@ -35,8 +35,8 @@ const useStyles = makeStyles({
   center: {
     justifyContent: "center",
     alignItems: "center",
-  }
-})
+  },
+});
 
 const RecipeDetails: React.FunctionComponent<{}> = () => {
   const { recipeId } = useParams();
@@ -44,7 +44,11 @@ const RecipeDetails: React.FunctionComponent<{}> = () => {
   const classes = useStyles();
 
   if (loading) {
-    return <div className={`${classes.root} ${classes.center}`}><CircularProgress /></div>
+    return (
+      <div className={`${classes.root} ${classes.center}`}>
+        <CircularProgress />
+      </div>
+    );
   }
   return (
     <React.Fragment>
@@ -57,7 +61,7 @@ const RecipeDetails: React.FunctionComponent<{}> = () => {
       </Typography>
       <List dense>
         {data.recipeById.ingredients.map((ingredient: any) => (
-          <ListItem key={ingredient.ingredient}>
+          <ListItem key={ingredient.name}>
             <ListItemIcon>
               <React.Fragment>
                 <Checkbox />
@@ -73,12 +77,16 @@ const RecipeDetails: React.FunctionComponent<{}> = () => {
         Directions
       </Typography>
       <Typography variant="body1">{data.recipeById.instructions}</Typography>
-      <Typography variant="h4" component="h2">
-        Unformatted
-      </Typography>
-      <Typography variant="body1">
-        <span dangerouslySetInnerHTML={{__html: data.recipeById.unformatted}} />
-      </Typography>
+      {data.recipeById.unformatted ? (
+        <React.Fragment>
+          <Typography variant="h4" component="h2">
+            Unformatted
+          </Typography>
+          <Typography variant="body1">
+            <span dangerouslySetInnerHTML={{ __html: data.recipeById.unformatted }} />
+          </Typography>
+        </React.Fragment>
+      ) : null}
     </React.Fragment>
   );
 };

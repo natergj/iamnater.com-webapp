@@ -1,5 +1,5 @@
 import * as React from "react";
-import { gql, useQuery } from "@apollo/client"
+import { gql, useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
 import RecipeListItem from "./RecipeListItem";
 import { List, TextField, CircularProgress } from "@material-ui/core";
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
   },
   textField: {
-    display: "block"
+    display: "block",
   },
   list: {
     height: "100%",
@@ -28,11 +28,11 @@ const useStyles = makeStyles(theme => ({
   center: {
     justifyContent: "center",
     alignItems: "center",
-  }
+  },
 }));
 
 type RecipeListQueryType = {
-  recipes: any[],
+  recipes: any[];
 };
 
 const query = gql`
@@ -44,7 +44,6 @@ const query = gql`
   }
 `;
 
-
 const RecipeList: React.FunctionComponent<{}> = () => {
   const [searchValue, setSearchValue] = React.useState("");
   const { loading, data } = useQuery<RecipeListQueryType>(query);
@@ -52,7 +51,11 @@ const RecipeList: React.FunctionComponent<{}> = () => {
   const re = new RegExp(searchValue, "ig");
 
   if (loading) {
-    return <div className={`${classes.root} ${classes.center}`}><CircularProgress /></div>
+    return (
+      <div className={`${classes.root} ${classes.center}`}>
+        <CircularProgress />
+      </div>
+    );
   }
   return (
     <div className={classes.root}>

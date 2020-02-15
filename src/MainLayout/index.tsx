@@ -1,5 +1,5 @@
 import * as React from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import MainAppBar from "./MainAppBar";
 import MainContent from "./MainContent";
 
@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     overflow: "hidden",
-    height: "100%"
+    height: "100%",
   },
 }));
 

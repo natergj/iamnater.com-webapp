@@ -3,13 +3,13 @@ import { Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Home from "../routes/Home";
 import ErrorBoundary from "../components/ErrorBoundary";
-const Recipes = React.lazy(() => import("../routes/recipes/Recipes"));
+const Recipes = React.lazy(() => import(/* webpackChunkName: "recipes" */ "../routes/recipes/Recipes"));
 
 const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    height: "100%"
+    height: "100%",
   },
 });
 
