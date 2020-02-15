@@ -6,6 +6,7 @@ module.exports = {
   output: {
     filename: "[name].[chunkhash].js",
     path: __dirname + "/dist",
+    publicPath: "/",
   },
   mode: process.env.WEBPACK_BUILD_MODE || "production",
   optimization: {
@@ -34,4 +35,8 @@ module.exports = {
   module: {
     rules: [{ test: /\.tsx?$/, loader: "ts-loader" }],
   },
+  devServer: {
+    historyApiFallback: true,
+  },
+  devtool: "source-map",
 };

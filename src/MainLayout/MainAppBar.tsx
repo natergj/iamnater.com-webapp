@@ -1,33 +1,42 @@
-import React from "react";
+import * as React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Typography, Button, IconButton } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
+import { AppBar, Toolbar } from "@material-ui/core";
+import ErrorBoundary from "../components/ErrorBoundary";
+import NavMenu from "./NavMenu";
+import { useLocation } from "react-router-dom";
+
+const Loading = () => <div>Loading</div>;
 
 const useStyles = makeStyles(theme => ({
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
+  spacer: {
     flexGrow: 1,
+  },
+  appBar: {
+    backgroundColor: theme.palette.background.paper,
   },
 }));
 
+const ROUTE_MAP = new Map([
+  ["", "HOME"],
+  ["recipes", "RECIPES"],
+]);
+
 const MainAppBar: React.FunctionComponent<{}> = () => {
   const classes = useStyles({});
+  const location = useLocation();
+  const section = ROUTE_MAP.get(location.pathname.split("/")[1])
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" className={classes.appBar}>
       <Toolbar>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" className={classes.title}>
-          Home
-        </Typography>
-        <Button color="inherit">Login</Button>
+        <ErrorBoundary>
+          <NavMenu />
+          <div>{section}</div>
+          <div className={classes.spacer} />
+        </ErrorBoundary>
       </Toolbar>
     </AppBar>
   );
-}
+};
 
 export default MainAppBar;

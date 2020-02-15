@@ -6,5 +6,12 @@
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      function setAppHeight() {
+        document.getElementById('app').style.height = window.innerHeight + "px";
+      }
+      window.addEventListener("resize", setAppHeight);
+      setAppHeight();
+    </script>
   </body>
 </html>
