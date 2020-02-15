@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -28,7 +29,12 @@ module.exports = {
       }
     },
   },
-  plugins: [new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.ejs" })],
+  plugins: [
+    new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.ejs" }),
+    new webpack.DefinePlugin({
+      GRAPHQL_URI: JSON.stringify(process.env.GRAPHQL_URI || 'http://127.0.0.1:3000/graphql'),
+    })
+  ],
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
   },
