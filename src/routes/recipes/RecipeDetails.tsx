@@ -60,15 +60,15 @@ const RecipeDetails: React.FunctionComponent<{}> = () => {
         Ingredients
       </Typography>
       <List dense>
-        {data.recipeById.ingredients.map((ingredient: any) => (
-          <ListItem key={ingredient.name}>
+        {data.recipeById.ingredients.map((ingredient: any, index) => (
+          <ListItem key={index}>
             <ListItemIcon>
               <React.Fragment>
                 <Checkbox />
               </React.Fragment>
             </ListItemIcon>
             <ListItemText>
-              {ingredient.amount} {toTitleCase(ingredient.measure)} {toTitleCase(ingredient.name)}
+              {convertToFraction(ingredient.amount)} {toTitleCase(ingredient.measure)} {toTitleCase(ingredient.name)}
             </ListItemText>
           </ListItem>
         ))}
@@ -90,5 +90,32 @@ const RecipeDetails: React.FunctionComponent<{}> = () => {
     </React.Fragment>
   );
 };
+
+function gcd(a: number, b: number) {
+  return b ? gcd(b, a % b) : a;
+}
+
+function reduce(numerator, denominator) {
+  const den = gcd(numerator, denominator);
+  return [numerator / den, denominator / den];
+}
+
+function convertToFraction(num: number) {
+  let numerator, denominator;
+  const wholeNumber = Math.floor(num);
+  const remainder = num % 1;
+  if (remainder === 0) {
+    return wholeNumber;
+  }
+  const sixteenths = remainder / (1 / 16);
+  const sixths = remainder / (1 / 6);
+
+  if (sixths === parseInt(sixths.toString(), 10)) {
+    [numerator, denominator] = reduce(sixths, 6);
+  } else {
+    [numerator, denominator] = reduce(sixteenths, 16);
+  }
+  return `${wholeNumber || ""} ${numerator}/${denominator}`;
+}
 
 export default RecipeDetails;

@@ -45,6 +45,10 @@ module.exports = {
   module: {
     rules: [
       { test: /\.tsx?$/, exclude: path.resolve(__dirname, "./node_modules"), use: ["babel-loader", "ts-loader"] },
+      {
+        test: /\.(png|jpe?g|gif|pdf)$/i,
+        use: [{ loader: "file-loader", options: { name: "assets/[name].[contenthash].[ext]" } }],
+      },
     ],
   },
   devServer: {

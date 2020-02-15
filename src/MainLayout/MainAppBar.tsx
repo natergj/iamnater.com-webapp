@@ -10,7 +10,10 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   appBar: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: (props: any) => (props.section === "HOME" ? "#5977a3" : theme.palette.background.paper),
+  },
+  section: {
+    color: theme.palette.getContrastText(theme.palette.background.paper),
   },
 }));
 
@@ -20,16 +23,16 @@ const ROUTE_MAP = new Map([
 ]);
 
 const MainAppBar: React.FunctionComponent<{}> = () => {
-  const classes = useStyles({});
   const location = useLocation();
   const section = ROUTE_MAP.get(location.pathname.split("/")[1]);
+  const classes = useStyles({ section });
 
   return (
     <AppBar position="static" className={classes.appBar}>
       <Toolbar>
         <ErrorBoundary>
           <NavMenu />
-          <div>{section}</div>
+          <div className={classes.section}>{section}</div>
           <div className={classes.spacer} />
         </ErrorBoundary>
       </Toolbar>
