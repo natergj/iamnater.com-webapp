@@ -11,6 +11,8 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     backgroundColor: (props: any) => props.bgColor,
+    paddingLeft: "env(safe-area-inset-left)",
+    paddingRight: "env(safe-area-inset-right)",
   },
   section: {
     color: (props: any) => theme.palette.getContrastText(props.bgColor),
@@ -18,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ROUTE_MAP = new Map([
-  ["", "HOME"],
+  ["", "I AM NATER"],
   ["recipes", "RECIPES"],
 ]);
 
@@ -30,7 +32,7 @@ const MainAppBar: React.FunctionComponent<{}> = () => {
   const classes = useStyles({ bgColor });
 
   return (
-    <AppBar position="static" className={classes.appBar}>
+    <AppBar position="relative" className={classes.appBar}>
       <Toolbar>
         <ErrorBoundary>
           <NavMenu color={theme.palette.getContrastText(bgColor)} />

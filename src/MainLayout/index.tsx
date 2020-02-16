@@ -18,7 +18,7 @@ const MainLayout: React.FunctionComponent<{}> = () => {
   const classes = useStyles({});
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} id="layout-root">
       <MainAppBar />
       <MainContent />
     </div>

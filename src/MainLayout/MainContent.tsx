@@ -10,6 +10,9 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     height: "100%",
+    paddingLeft: "env(safe-area-inset-left)",
+    paddingRight: "env(safe-area-inset-right)",
+    paddingBottom: "env(safe-area-inset-bottom)",
   },
 });
 

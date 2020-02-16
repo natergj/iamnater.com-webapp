@@ -1,8 +1,19 @@
 import * as React from "react";
 import { gql, useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Checkbox, Typography, List, ListItem, ListItemText, ListItemIcon, CircularProgress } from "@material-ui/core";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import {
+  Checkbox,
+  Typography,
+  List,
+  ListItem,
+  CircularProgress,
+  Button,
+  FormControlLabel,
+  ListItemText,
+} from "@material-ui/core";
 import toTitleCase from "titlecase";
 
 type RecipeListQueryType = {
@@ -44,7 +55,12 @@ const useStyles = makeStyles(theme => ({
 
 const RecipeDetails: React.FunctionComponent<{}> = () => {
   const { recipeId } = useParams();
-  const { loading, data } = useQuery<RecipeListQueryType>(query, { variables: { id: recipeId } });
+  const history = useHistory();
+  const { loading, error, data } = useQuery<RecipeListQueryType>(query, {
+    variables: { id: recipeId },
+    errorPolicy: "all",
+  });
+  const isMobile = useMediaQuery("(max-width:375px)");
   const classes = useStyles();
 
   if (loading) {
@@ -54,8 +70,18 @@ const RecipeDetails: React.FunctionComponent<{}> = () => {
       </div>
     );
   }
+
+  if (!data) {
+    return <div>{JSON.stringify(error)}</div>;
+  }
+
   return (
     <React.Fragment>
+      {isMobile ? (
+        <Button onClick={() => history.push("/recipes")} startIcon={<ChevronLeftIcon />} fullWidth>
+          Back to recipes
+        </Button>
+      ) : null}
       <Typography className={classes.heading} variant="h3" component="h1">
         {data.recipeById.title}
       </Typography>
@@ -66,13 +92,13 @@ const RecipeDetails: React.FunctionComponent<{}> = () => {
       <List dense>
         {data.recipeById.ingredients.map((ingredient: any, index) => (
           <ListItem key={index}>
-            <ListItemIcon>
-              <React.Fragment>
-                <Checkbox />
-              </React.Fragment>
-            </ListItemIcon>
             <ListItemText>
-              {convertToFraction(ingredient.amount)} {toTitleCase(ingredient.measure)} {toTitleCase(ingredient.name)}
+              <FormControlLabel
+                control={<Checkbox color="primary" />}
+                label={`${convertToFraction(ingredient.amount)} ${toTitleCase(ingredient.measure)} ${toTitleCase(
+                  ingredient.name,
+                )}`}
+              />
             </ListItemText>
           </ListItem>
         ))}

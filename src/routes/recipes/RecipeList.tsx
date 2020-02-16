@@ -1,18 +1,19 @@
 import * as React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
+import { useParams } from "react-router-dom";
 import RecipeListItem from "./RecipeListItem";
 import { List, TextField, CircularProgress } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles(theme => ({
   root: {
     borderRight: `1px solid ${theme.palette.divider}`,
-    width: "240px",
+    width: ({ isMobile, hide }: any) => isMobile && !hide ? "100vw" : "240px",
     minWidth: "240px",
-    // height: "100%",
     overflow: "hidden",
-    display: "flex",
+    display: ({ hide }: any) => hide ? "none" : "flex",
     flexDirection: "column",
   },
   textField: {
@@ -47,7 +48,9 @@ const query = gql`
 const RecipeList: React.FunctionComponent<{}> = () => {
   const [searchValue, setSearchValue] = React.useState("");
   const { loading, data } = useQuery<RecipeListQueryType>(query);
-  const classes = useStyles();
+  const isMobile = useMediaQuery('(max-width:375px)');
+  const { recipeId } = useParams();
+  const classes = useStyles({isMobile, hide: isMobile && !!recipeId });
   const re = new RegExp(searchValue, "ig");
 
   if (loading) {

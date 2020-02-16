@@ -36,7 +36,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.ejs" }),
     new webpack.DefinePlugin({
-      GRAPHQL_URI: JSON.stringify(process.env.GRAPHQL_URI || "http://127.0.0.1:3000/graphql"),
+      GRAPHQL_URI: JSON.stringify(process.env.GRAPHQL_URI || "/graphql"),
     }),
   ],
   resolve: {
@@ -53,6 +53,15 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
+    host: "0.0.0.0",
+    public: "home.local:8080",
+    proxy: [
+      {
+        context: ["/graphql"],
+        target: "http://localhost:3000",
+        secure: false,
+      },
+    ],
   },
   devtool: "source-map",
 };

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import RecipeList from "./RecipeList";
 import RecipeDetails from "./RecipeDetails";
 import RecipesHistory from "./RecipesHistory";
@@ -13,12 +14,14 @@ const useStyles = makeStyles(theme => ({
   },
   detailsContainer: {
     flexGrow: 1,
-    padding: theme.spacing(1),
+    padding: (props: any) => props.isMobile ? 0 : theme.spacing(1),
+    overflow: "auto",
   },
 }));
 
 const Recipes: React.FunctionComponent<{}> = () => {
-  const classes = useStyles();
+  const isMobile = useMediaQuery('(max-width:375px)');
+  const classes = useStyles({ isMobile });
   const { recipeId } = useParams();
 
   return (
@@ -31,7 +34,7 @@ const Recipes: React.FunctionComponent<{}> = () => {
           <React.Suspense fallback="">
             <RecipeDetails />
           </React.Suspense>
-        ) : (
+        ) : isMobile ? null :(
           <RecipesHistory />
         )}
       </div>

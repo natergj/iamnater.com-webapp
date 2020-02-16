@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Typography, List, ListItem, ListItemIcon, Link as MaterialLink } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CheckIcon from "@material-ui/icons/Check";
 import CodeIcon from "@material-ui/icons/Code";
 import img1 from "../assets/CoCollegeParkCenter8527imagesconstruct.gif";
@@ -9,12 +9,14 @@ import img2 from "../assets/Aurora2854imagesunderconstruction.gif";
 import img3 from "../assets/CoColosseumField3807construction2.gif";
 import resume from "../assets/Resume-Nater_Jorde.pdf";
 
+const bgColor = "#b7d0f7";
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(2),
-    backgroundColor: "#b7d0f7",
+    backgroundColor: bgColor,
     height: "100%",
     fontSize: theme.typography.body1.fontSize,
+    overflow: "auto",
   },
   heading: {
     marginTop: theme.spacing(3),
@@ -29,6 +31,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Home = () => {
+  const theme = useTheme();
+
+  React.useEffect(() => {
+    document.querySelector("body").style.backgroundColor = bgColor;
+    document.getElementById("layout-root").style.backgroundColor = bgColor;
+
+    return () => {
+      document.querySelector("body").style.backgroundColor = theme.palette.background.paper;
+      document.getElementById("layout-root").style.backgroundColor = theme.palette.background.paper;
+    };
+  }, [theme]);
+
   const classes = useStyles();
 
   return (
