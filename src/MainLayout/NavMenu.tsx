@@ -3,7 +3,7 @@ import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 
-const NavMenu: React.FunctionComponent<{}> = () => {
+const NavMenu: React.FunctionComponent<{ color: string }> = ({ color }) => {
   const anchorEl = React.useRef(null);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const history = useHistory();
@@ -21,6 +21,7 @@ const NavMenu: React.FunctionComponent<{}> = () => {
         aria-haspopup="true"
         onClick={() => setIsMenuOpen(true)}
         ref={anchorEl}
+        style={{ color }}
       >
         <MenuIcon />
       </IconButton>

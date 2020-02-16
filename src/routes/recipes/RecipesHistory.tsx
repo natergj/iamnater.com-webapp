@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   photo: {
     float: "left",
     marginRight: theme.spacing(2),
-  }
+  },
 }));
 
 const RecipesHistory: React.FunctionComponent = () => {

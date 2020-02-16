@@ -5,7 +5,6 @@ import RecipeDetails from "./RecipeDetails";
 import RecipesHistory from "./RecipesHistory";
 import { useParams } from "react-router-dom";
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     height: "100%",
@@ -32,7 +31,9 @@ const Recipes: React.FunctionComponent<{}> = () => {
           <React.Suspense fallback="">
             <RecipeDetails />
           </React.Suspense>
-        ) : <RecipesHistory />}
+        ) : (
+          <RecipesHistory />
+        )}
       </div>
     </div>
   );

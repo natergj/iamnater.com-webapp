@@ -26,7 +26,7 @@ const query = gql`
   }
 `;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexGrow: 1,
@@ -36,7 +36,11 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "center",
   },
-});
+  heading: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(2),
+  },
+}));
 
 const RecipeDetails: React.FunctionComponent<{}> = () => {
   const { recipeId } = useParams();
@@ -52,11 +56,11 @@ const RecipeDetails: React.FunctionComponent<{}> = () => {
   }
   return (
     <React.Fragment>
-      <Typography variant="h3" component="h1">
+      <Typography className={classes.heading} variant="h3" component="h1">
         {data.recipeById.title}
       </Typography>
       <Typography variant="subtitle1">{data.recipeById.description}</Typography>
-      <Typography variant="h4" component="h2">
+      <Typography className={classes.heading} variant="h4" component="h2">
         Ingredients
       </Typography>
       <List dense>
@@ -73,13 +77,13 @@ const RecipeDetails: React.FunctionComponent<{}> = () => {
           </ListItem>
         ))}
       </List>
-      <Typography variant="h4" component="h2">
+      <Typography className={classes.heading} variant="h4" component="h2">
         Directions
       </Typography>
       <Typography variant="body1">{data.recipeById.instructions}</Typography>
       {data.recipeById.unformatted ? (
         <React.Fragment>
-          <Typography variant="h4" component="h2">
+          <Typography className={classes.heading} variant="h4" component="h2">
             Unformatted
           </Typography>
           <Typography variant="body1">
