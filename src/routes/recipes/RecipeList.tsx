@@ -5,15 +5,15 @@ import { useParams } from "react-router-dom";
 import RecipeListItem from "./RecipeListItem";
 import { List, TextField, CircularProgress } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles(theme => ({
   root: {
     borderRight: `1px solid ${theme.palette.divider}`,
-    width: ({ isMobile, hide }: any) => isMobile && !hide ? "100vw" : "240px",
+    width: ({ isMobile, hide }: any) => (isMobile && !hide ? "100vw" : "240px"),
     minWidth: "240px",
     overflow: "hidden",
-    display: ({ hide }: any) => hide ? "none" : "flex",
+    display: ({ hide }: any) => (hide ? "none" : "flex"),
     flexDirection: "column",
   },
   textField: {
@@ -48,10 +48,9 @@ const query = gql`
 const RecipeList: React.FunctionComponent<{}> = () => {
   const [searchValue, setSearchValue] = React.useState("");
   const { loading, data } = useQuery<RecipeListQueryType>(query);
-  const isMobile = useMediaQuery('(max-width:375px)');
+  const isMobile = useMediaQuery("(max-width:375px)");
   const { recipeId } = useParams();
-  const classes = useStyles({isMobile, hide: isMobile && !!recipeId });
-  const re = new RegExp(searchValue, "ig");
+  const classes = useStyles({ isMobile, hide: isMobile && !!recipeId });
 
   if (loading) {
     return (
@@ -75,7 +74,9 @@ const RecipeList: React.FunctionComponent<{}> = () => {
       />
       <List className={classes.list}>
         {data.recipes.map((recipe: any) =>
-          recipe.title.match(re) ? <RecipeListItem key={recipe.id} recipe={recipe} /> : null,
+          recipe.title.toLowerCase().includes(searchValue.toLowerCase()) ? (
+            <RecipeListItem key={recipe.id} recipe={recipe} />
+          ) : null,
         )}
       </List>
     </div>

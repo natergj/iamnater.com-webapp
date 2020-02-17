@@ -100,9 +100,11 @@ const RecipeDetails: React.FunctionComponent<{}> = () => {
             <ListItemText>
               <FormControlLabel
                 control={<Checkbox color="primary" />}
-                label={`${convertToFraction(ingredient.amount)} ${toTitleCase(ingredient.measure)} ${toTitleCase(
-                  ingredient.name,
-                )}`}
+                label={`
+                  ${convertToFraction(ingredient.amount)}
+                  ${ingredient.measure ? toTitleCase(ingredient.measure) : ""}
+                  ${toTitleCase(ingredient.name)}
+                `}
               />
             </ListItemText>
           </ListItem>
