@@ -33,6 +33,11 @@ const query = gql`
         measure
         amount
       }
+      uploads {
+        id
+        fileName
+        filePath
+      }
     }
   }
 `;
@@ -117,6 +122,13 @@ const RecipeDetails: React.FunctionComponent<{}> = () => {
           </Typography>
         </React.Fragment>
       ) : null}
+      <List>
+        {data.recipeById.uploads.map(upload => (
+          <ListItem key={upload.id}>
+            <img src={`/${upload.filePath}`} />
+          </ListItem>
+        ))}
+      </List>
     </React.Fragment>
   );
 };
@@ -140,10 +152,10 @@ function convertToFraction(num: number) {
   const sixteenths = remainder / (1 / 16);
   const sixths = remainder / (1 / 6);
 
-  if (sixths === parseInt(sixths.toString(), 10)) {
-    [numerator, denominator] = reduce(sixths, 6);
+  if (parseInt(sixths.toPrecision(1), 10) % 1 === 0) {
+    [numerator, denominator] = reduce(parseInt(sixths.toPrecision(1), 10), 6);
   } else {
-    [numerator, denominator] = reduce(sixteenths, 16);
+    [numerator, denominator] = reduce(parseInt(sixteenths.toPrecision(1), 10), 16);
   }
   return `${wholeNumber || ""} ${numerator}/${denominator}`;
 }
