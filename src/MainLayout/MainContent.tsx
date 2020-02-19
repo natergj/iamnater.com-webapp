@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Home from "../routes/Home";
 import ErrorBoundary from "../components/ErrorBoundary";
 const Recipes = React.lazy(() => import(/* webpackChunkName: "recipes" */ "../routes/recipes/Recipes"));
+const Auth = React.lazy(() => import(/* webpackChunkName: "auth" */ "../routes/auth"))
 
 const useStyles = makeStyles({
   root: {
@@ -27,6 +28,11 @@ const MainContent = () => {
           <Route path={["/recipes/:recipeId", "/recipes"]}>
             <React.Suspense fallback="">
               <Recipes />
+            </React.Suspense>
+          </Route>
+          <Route path={["/auth/:provider/code", "/auth/:provider", "/auth"]}>
+            <React.Suspense fallback="">
+              <Auth />
             </React.Suspense>
           </Route>
           <Route render={() => "Page not found"} />

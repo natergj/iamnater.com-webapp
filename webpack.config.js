@@ -34,7 +34,7 @@ module.exports = {
     },
   },
   plugins: [
-    new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.ejs" }),
+    new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.ejs", title: "I Am Nater" }),
     new webpack.DefinePlugin({
       GRAPHQL_URI: JSON.stringify(process.env.GRAPHQL_URI || "/graphql"),
     }),
@@ -56,6 +56,7 @@ module.exports = {
     contentBase: path.join(__dirname, 'public'),
     host: "0.0.0.0",
     public: "home.local:8080",
+    https: true,
     proxy: [
       {
         context: ["/graphql"],
