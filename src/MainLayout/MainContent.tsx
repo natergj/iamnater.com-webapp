@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Home from "../routes/Home";
 import ErrorBoundary from "../components/ErrorBoundary";
+import Auth from "../components/Auth";
 const Recipes = React.lazy(() => import(/* webpackChunkName: "recipes" */ "../routes/recipes/Recipes"));
 
 const useStyles = makeStyles({
@@ -22,10 +23,11 @@ const MainContent = () => {
   return (
     <main className={classes.root}>
       <ErrorBoundary>
+        <Auth />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path={["/recipes/:recipeId", "/recipes"]}>
-            <React.Suspense fallback="">
+            <React.Suspense fallback="loading">
               <Recipes />
             </React.Suspense>
           </Route>

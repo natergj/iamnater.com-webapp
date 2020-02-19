@@ -7,15 +7,18 @@ import { BrowserRouter } from "react-router-dom";
 import theme from "./theme";
 import MainLayout from "./MainLayout";
 import client from "./graphql/client";
+import { UserProvider } from "./contexts/User";
 
 const App = () => {
   return (
     <CssBaseline>
       <BrowserRouter>
         <ApolloProvider client={client}>
-          <ThemeProvider theme={theme}>
-            <MainLayout />
-          </ThemeProvider>
+          <UserProvider>
+            <ThemeProvider theme={theme}>
+              <MainLayout />
+            </ThemeProvider>
+          </UserProvider>
         </ApolloProvider>
       </BrowserRouter>
     </CssBaseline>
