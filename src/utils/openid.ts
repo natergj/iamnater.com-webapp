@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+declare var OAUTH_ENDPOINT: string;
 
 const config = {
   authorizationEndpoint: "https://auth.iamnater.com/oauth2/authorize",
@@ -29,7 +30,7 @@ export async function exchangeCode(code: string, state: string) {
     throw new Error("Invalid auth state");
   }
 
-  const resp = await fetch(`/oauth/exchange-token`, {
+  const resp = await fetch(`${OAUTH_ENDPOINT}/oauth/exchange-token`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -61,7 +62,7 @@ export const refreshTokens = async () => {
   if (!refreshToken) {
     return;
   }
-  const resp = await fetch(`/oauth/refresh-token`, {
+  const resp = await fetch(`${OAUTH_ENDPOINT}/oauth/refresh-token`, {
     method: "POST",
     headers: {
       "content-type": "application/json",

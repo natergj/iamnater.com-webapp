@@ -37,6 +37,7 @@ module.exports = {
     new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.ejs", title: "I Am Nater" }),
     new webpack.DefinePlugin({
       GRAPHQL_URI: JSON.stringify(process.env.GRAPHQL_URI || "/graphql"),
+      OAUTH_ENDPOINT: JSON.stringify(process.env.OAUTH_ENDPOINT || ""),
     }),
   ],
   resolve: {
